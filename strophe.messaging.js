@@ -22,7 +22,7 @@ Author: Christian Pauly
 			Strophe.addNamespace('CHATSTATES', 'http://jabber.org/protocol/chatstates');
 		},
 
-		statusChanged: function (status, condition) {	console.log(status);
+		statusChanged: function (status, condition) {
             if (status === Strophe.Status.CONNECTED || status === Strophe.Status.ATTACHED) {
                 this._connection.addHandler(this._messageHandler.bind(this), null, "message");
             }
