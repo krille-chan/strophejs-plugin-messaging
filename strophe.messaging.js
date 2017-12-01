@@ -33,7 +33,7 @@ Author: Christian Pauly
 			try
 			{
 				if ( stanza.hasAttribute("type") && stanza.attributes.type.value=="chat")
-				{	console.info(stanza);
+				{
 					var delay = false;
 					var timestamp = new Date().getTime();
 					var id = (timestamp + Math.random()) * 100000;
@@ -87,8 +87,7 @@ Author: Christian Pauly
 			}
 			catch(e)
 			{
-				console.warn(e.message);
-				console.info(stanza);
+				console.warn("Fatal error in message handler:", e.message, stanza);
 			}
 			return true;
 		},
