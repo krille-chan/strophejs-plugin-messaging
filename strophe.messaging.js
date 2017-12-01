@@ -32,7 +32,7 @@ Author: Christian Pauly
 		messageHandler: function (stanza) {
 			try
 			{
-				if ( stanza.hasAttribute("type") && stanza.attributes.type.value=="chat")
+				if ( stanza.hasAttribute("type") && stanza.getAttribute("type")=="chat" || stanza.getAttribute("type")=="groupchat")
 				{
 					var delay = false;
 					var timestamp = new Date().getTime();
@@ -60,7 +60,6 @@ Author: Christian Pauly
 						{
 							chat: chat,
 							from: from,
-							type: stanza.attributes.type.value,
 							body: messageBody,
 							direction: direction,
 							timestamp: timestamp,
