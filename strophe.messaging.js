@@ -132,8 +132,8 @@ Author: Christian Pauly
 
 		SendChatState: function(to,chatState)
 		{
-			var imc = $msg({"id":XMPP.conn.getUniqueId(), xmlns: "jabber:client", from:XMPP.ownJID, "to":to, 'type':'chat'}).c(chatState, {xmlns: "http://jabber.org/protocol/chatstates"});
-			XMPP.conn.send( imc.tree());
+			var imc = $msg({"id":this._connection.getUniqueId(), xmlns: "jabber:client", from: this._connection.jid,  "to":to, 'type':'chat'}).c(chatState, {xmlns: "http://jabber.org/protocol/chatstates"});
+			this._connection.send( imc.tree());
 		},
 
 
