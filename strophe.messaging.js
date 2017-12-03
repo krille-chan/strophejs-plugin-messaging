@@ -32,7 +32,9 @@ Author: Christian Pauly
 		messageHandler: function (stanza) {
 			try
 			{
-				if ( stanza.hasAttribute("type") && stanza.getAttribute("type")=="chat" || stanza.getAttribute("type")=="groupchat")
+				if ( stanza.hasAttribute ( "type" ) &&
+					(	stanza.getAttribute ( "type" ) =="chat" ||
+					 	stanza.getAttribute ( "type" ) =="groupchat") )
 				{
 					var delay = false;
 					var timestamp = new Date().getTime();
@@ -40,7 +42,7 @@ Author: Christian Pauly
 					var from = stanza.attributes["from"].value.match(/^[^\/]*/)[0];
 					var chat = from;
 					var direction = 'received';
-					if ( Strophe.getBareJidFromJid ( chat ) == this._connection.authzid )
+					if ( this._connection != undefined && Strophe.getBareJidFromJid ( from ) == Strophe.getBareJidFromJid ( this._connection.jid ) )
 					{
 						chat = stanza.attributes["to"].value.match(/^[^\/]*/)[0];
 						direction = 'sent';
@@ -66,6 +68,7 @@ Author: Christian Pauly
 							type: stanza.getAttribute("type"),
 							id: id,
 							delay: delay,
+							type: stanza.getAttribute ( "type" ),
 						}
 						if ( this.OnMessage!=null )
 							this.OnMessage(newMessageObject);
