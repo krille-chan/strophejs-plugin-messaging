@@ -37,15 +37,22 @@ Author: Christian Pauly
 					 	stanza.getAttribute ( "type" ) =="groupchat") )
 				{
 					var delay = false;
+					var type = stanza.getAttribute ( "type" );
 					var timestamp = new Date().getTime();
 					var id = (timestamp + Math.random()) * 100000;
-					var from = stanza.attributes["from"].value.match(/^[^\/]*/)[0];
+					var from = stanza.getAttribute ( "from" );
 					var chat = from;
 					var direction = 'received';
+					if ( type == "groupchat" ) {
+						from = Strophe.getResourceFromJid ( chat );
+						chat = Strophe.getBareJidFromJid ( chat );
+					}
 					if ( this._connection != undefined && Strophe.getBareJidFromJid ( from ) == Strophe.getBareJidFromJid ( this._connection.jid ) )
 					{
-						chat = stanza.attributes["to"].value.match(/^[^\/]*/)[0];
 						direction = 'sent';
+						if ( type == "chat" ) {
+							chat = stanza.getAttribute ( "to" );
+						}
 					}
 					if ( delayElem = stanza.querySelector( "delay" ) )
 					{
@@ -68,7 +75,7 @@ Author: Christian Pauly
 							type: stanza.getAttribute("type"),
 							id: id,
 							delay: delay,
-							type: stanza.getAttribute ( "type" ),
+							type: type,
 						}
 						if ( this.OnMessage!=null )
 							this.OnMessage(newMessageObject);
